@@ -50,6 +50,7 @@
 
   <section id="home" class="screen" hidden>
     <h2>This is you on nostr</h2>
+    <p class="hint" id="kind"></p>
     <p class="label">Your public key (npub). Safe to share.</p>
     <p class="key" id="npub"></p>
     <button id="copy-npub" class="secondary">Copy npub</button>
@@ -77,6 +78,14 @@
         <button id="copy-nsec" class="secondary">Copy nsec</button>
         <button id="hide" class="secondary">Hide</button>
       </div>
+    </div>
+
+    <div class="card" id="backup" hidden>
+      <h3>Add a backup portal</h3>
+      <p>If this site ever goes away, a backup portal on another address can open the same identity.
+        Pick one, then follow the steps in the window that opens. Expect to use your passkey there 3 times (sometimes 4).</p>
+      <div id="backup-list"></div>
+      <p class="hint" id="backup-status"></p>
     </div>
 
     <button id="lock" class="secondary">Lock (forget the key on this page)</button>

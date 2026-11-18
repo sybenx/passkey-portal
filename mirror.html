@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'">
+<meta name="referrer" content="no-referrer">
+<title>Make a backup - Passkey Portal</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/portal.css">
+<script type="module" src="js/mirror-page.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Passkey Portal</h1>
+    <p class="lead">Making a backup</p>
+  </header>
+
+  <section id="waiting" class="screen">
+    <p class="big">Waiting for the portal that opened this…</p>
+  </section>
+
+  <section id="ask" class="screen" hidden>
+    <p>This portal is offering to copy your nostr identity here:</p>
+    <p class="origin" id="from"></p>
+    <p>A backup passkey will be made for <strong id="here"></strong>. If the portal above ever goes away,
+      you can sign in here instead and get the same identity.</p>
+    <p class="hint">Only go on if you opened this yourself from your own portal, just now.
+      You will use your passkey 3 times (sometimes 4): to make it, to save the copy into it, and to check it.</p>
+    <button id="go" class="primary">Make a backup passkey here</button>
+    <button id="no" class="secondary">No thanks</button>
+  </section>
+
+  <section id="step" class="screen" hidden>
+    <p id="step-text"></p>
+    <button id="step-go" class="primary">Continue</button>
+  </section>
+
+  <section id="busy" class="screen" hidden>
+    <p class="big" id="busy-text">Waiting for your passkey…</p>
+  </section>
+
+  <section id="done" class="screen" hidden>
+    <p class="big">Backup saved and checked.</p>
+    <p class="key" id="npub"></p>
+    <p class="hint">You can close this window.</p>
+  </section>
+
+  <section id="error" class="screen" hidden>
+    <h2 id="error-title">No backup was made</h2>
+    <p id="error-text"></p>
+  </section>
+</main>
+</body>
+</html>

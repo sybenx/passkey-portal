@@ -48,15 +48,16 @@ async function signIn(how) {
   say('busy-text', how === 'create' ? 'Making your passkey… you may be asked twice.' : 'Waiting for your passkey…');
   show('busy');
   try {
-    const prf = how === 'create' ? await createPasskey() : await usePasskey();
-    const answer = answerFor(prf, site);
-    wipe(prf);
+    const { root } = how === 'create' ? await createPasskey() : await usePasskey();
+    const answer = answerFor(root, site); // the same answer from an original or a backup passkey
+    wipe(root);
     send(answer);
     show('done');
     setTimeout(() => window.close(), 600);
   } catch (e) {
     const unsupported = e instanceof PasskeyError && e.kind === 'unsupported';
-    fail(unsupported ? 'This device or browser can\'t do this' : 'Not signed in', e?.message || String(e), { gaps: unsupported, retry: !unsupported });
+    const title = unsupported ? 'This device or browser can\'t do this' : e?.kind === 'mirror' ? 'This backup can\'t open your identity right now' : 'Not signed in';
+    fail(title, e?.message || String(e), { gaps: unsupported, retry: !unsupported });
   } finally { busy = false; }
 }
 

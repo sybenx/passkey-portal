@@ -13,10 +13,10 @@ export const READY = 'passkey-portal/ready';
 export const ANSWER = 'passkey-portal/answer';
 export const REFUSED = 'passkey-portal/refused';
 
-/** The answer for one site from a passkey's PRF output. The master key is wiped before returning. */
-export function answerFor(prf, origin, { createdAt, expiration } = {}) {
+/** The answer for one site from the person's root (an original passkey's PRF output). The master key is wiped before returning. */
+export function answerFor(root, origin, { createdAt, expiration } = {}) {
   const o = siteOrigin(origin);
-  const { masterKey, childSeed } = fromPrf(prf);
+  const { masterKey, childSeed } = fromPrf(root);
   const child = childKey(childSeed, o);
   try {
     const attestation = buildAttestation({ masterKey, childKey: child, origin: o, createdAt, expiration });
