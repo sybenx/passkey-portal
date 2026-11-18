@@ -1,0 +1,46 @@
+# Deploys the site to GitHub Pages from this public repo, so anyone can see what was deployed and
+# when. No build: the files are copied as they are. The log lists each file's SHA-256, so the live
+# site can be compared with this run.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test (uses only the vendored files, no npm install)
+        run: node --test
+      - name: Check the vendored crypto matches its recorded hash
+        run: cd vendor && sha256sum -c SHA256SUMS
+      - name: Collect the site
+        run: |
+          mkdir _site
+          cp -r index.html authorize.html demo-client.html favicon.svg README.md LICENSE css js vendor _site/
+          # Your own domain is set in the repo's Settings > Pages, not here.
+          cd _site && find . -type f | sort | xargs sha256sum
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

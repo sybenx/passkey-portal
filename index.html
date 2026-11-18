@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'">
+<meta name="referrer" content="no-referrer">
+<title>Passkey Portal</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/portal.css">
+<script type="module" src="js/portal.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Passkey Portal</h1>
+    <p class="lead">A nostr identity from your passkey. No email, no password, no app to install.</p>
+  </header>
+
+  <section id="start" class="screen">
+    <button id="use" class="primary">Continue with passkey</button>
+    <p class="hint">Use the passkey you made here before.</p>
+    <button id="create" class="secondary">First time? Create a passkey</button>
+    <p class="hint">Each new passkey is a new, different identity. If you already made one, use it instead.</p>
+    <details>
+      <summary>How this works</summary>
+      <p>Your phone or computer keeps a passkey for this site, locked by your fingerprint, face or PIN.
+        When you unlock it, it hands this page a secret, and this page turns that secret into your nostr key.
+        The same passkey always gives the same key.</p>
+      <p>Your key stays in this page only while it is open. It is never saved here and never sent anywhere.
+        There is no server.</p>
+    </details>
+  </section>
+
+  <section id="busy" class="screen" hidden>
+    <p class="big" id="busy-text">Waiting for your passkey…</p>
+  </section>
+
+  <section id="error" class="screen" hidden>
+    <h2 id="error-title">That didn't work</h2>
+    <p id="error-text"></p>
+    <div id="gaps" hidden>
+      <p>Places known not to work yet:</p>
+      <ul id="gap-list"></ul>
+      <p>Try Chrome or Safari, with the passkey saved on this device (Google Password Manager or iCloud Keychain).
+        Nothing weaker is used instead, so nothing was made.</p>
+    </div>
+    <button id="again" class="secondary">Back</button>
+  </section>
+
+  <section id="home" class="screen" hidden>
+    <h2>This is you on nostr</h2>
+    <p class="label">Your public key (npub). Safe to share.</p>
+    <p class="key" id="npub"></p>
+    <button id="copy-npub" class="secondary">Copy npub</button>
+
+    <div class="card nudge">
+      <h3>Keep a backup</h3>
+      <p>This key lives in your passkey. If the passkey is deleted, or this site goes away, the key goes with it.
+        Copy your secret key into a password manager, and when this identity starts to matter to you,
+        move it into a real signer app and stop using this page for it.</p>
+    </div>
+
+    <div class="card">
+      <h3>Your secret key (nsec)</h3>
+      <div id="secret-closed">
+        <p>Anyone who sees this can post as you, forever. Only show it when you are alone and about to save it.</p>
+        <button id="reveal" class="secondary">Show my secret key</button>
+      </div>
+      <div id="secret-confirm" hidden>
+        <p><strong>Are you sure?</strong> Check nobody can see your screen, and don't paste it into a website you don't trust.</p>
+        <button id="reveal-yes" class="danger">Yes, show it</button>
+        <button id="reveal-no" class="secondary">Cancel</button>
+      </div>
+      <div id="secret-open" hidden>
+        <p class="key secret" id="nsec"></p>
+        <button id="copy-nsec" class="secondary">Copy nsec</button>
+        <button id="hide" class="secondary">Hide</button>
+      </div>
+    </div>
+
+    <button id="lock" class="secondary">Lock (forget the key on this page)</button>
+  </section>
+
+  <footer>
+    <p>The whole page is a few small files. <a href="README.md">Read how it works</a>.</p>
+  </footer>
+</main>
+</body>
+</html>

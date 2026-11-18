@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'">
+<meta name="referrer" content="no-referrer">
+<title>Demo site: Sign in with portal</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/portal.css">
+<script type="module" src="js/demo-client.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>A demo site</h1>
+    <p class="lead">This page plays "some other site" that wants you to sign in with your nostr identity.</p>
+  </header>
+
+  <p class="hint">Portal: <span id="portal"></span></p>
+  <p class="card nudge" id="same-origin" hidden>This demo is on the same address as the portal. It works, but for a real test serve it
+    from a different one (see the README) and open it with <code>?portal=https://your-portal</code>.</p>
+
+  <button id="signin" class="primary">Sign in with portal</button>
+  <p id="status" class="hint"></p>
+
+  <section id="result" hidden>
+    <div class="card">
+      <h3>Signed in</h3>
+      <p class="label">Your key for this site</p>
+      <p class="key" id="child-npub"></p>
+      <p class="label">It belongs to</p>
+      <p class="key" id="master-npub"></p>
+      <p class="hint">Both signatures checked, and the key this site was given is the one they name.
+        This site also got that key's secret (nsec), so it can post as it. It is not shown here.</p>
+    </div>
+    <details>
+      <summary>The two attestation events (draft format)</summary>
+      <pre id="events"></pre>
+    </details>
+  </section>
+</main>
+</body>
+</html>

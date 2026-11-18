@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'">
+<meta name="referrer" content="no-referrer">
+<title>Sign in with Passkey Portal</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/portal.css">
+<script type="module" src="js/authorize.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Passkey Portal</h1>
+  </header>
+
+  <section id="waiting" class="screen">
+    <p class="big">Waiting for the site that opened this…</p>
+  </section>
+
+  <section id="ask" class="screen" hidden>
+    <p>This site wants you to sign in:</p>
+    <p class="origin" id="origin"></p>
+    <p>It will get a key made just for it. It will not get your main key, and other sites get different keys.
+      It will be able to post as that key, and to show it belongs to you.</p>
+    <p class="hint">Check the address above is the site you meant. Only that site will get the key.</p>
+    <button id="use" class="primary">Sign in with passkey</button>
+    <button id="create" class="secondary">First time? Create a passkey</button>
+    <button id="no" class="secondary">Don't sign in</button>
+  </section>
+
+  <section id="busy" class="screen" hidden>
+    <p class="big" id="busy-text">Waiting for your passkey…</p>
+  </section>
+
+  <section id="done" class="screen" hidden>
+    <p class="big">Signed in. You can close this window.</p>
+  </section>
+
+  <section id="error" class="screen" hidden>
+    <h2 id="error-title">That didn't work</h2>
+    <p id="error-text"></p>
+    <div id="gaps" hidden>
+      <p>Places known not to work yet:</p>
+      <ul id="gap-list"></ul>
+    </div>
+    <button id="again" class="secondary" hidden>Try again</button>
+  </section>
+</main>
+</body>
+</html>
