@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'">
+<meta name="referrer" content="no-referrer">
+<title>Handle test · Passkey Portal</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/portal.css">
+<script type="module" src="js/handle-probe.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Handle test</h1>
+  </header>
+
+  <p>This page checks one thing: can your passkey manager hold a small secret in the passkey itself
+    and give it back unchanged? It makes no account and no nostr key. The value is random and only for this test.</p>
+
+  <div class="card">
+    <p><strong>Step 1.</strong> Make a test passkey. It is saved as "Handle test" with today's date.</p>
+    <button id="make" class="primary">Make a test passkey</button>
+    <ul id="made" class="hint"></ul>
+  </div>
+
+  <div class="card">
+    <p><strong>Step 2.</strong> Use it. This works after a reload too, or on another device your manager syncs to.</p>
+    <button id="use" class="primary">Use the test passkey</button>
+    <ul id="used" class="hint"></ul>
+  </div>
+
+  <p class="big" id="verdict"></p>
+
+  <p class="hint">The two "fingerprint" lines should match. A fingerprint is a short code worked out from
+    the value, so the value itself is never shown. When you are done, delete the "Handle test" passkey
+    in your passkey manager.</p>
+</main>
+</body>
+</html>

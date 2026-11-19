@@ -35,7 +35,7 @@ jobs:
       - name: Collect the site
         run: |
           mkdir _site
-          cp -r index.html authorize.html demo-client.html favicon.svg README.md LICENSE css js vendor _site/
+          cp -r index.html authorize.html demo-client.html handle-test.html favicon.svg README.md LICENSE css js vendor _site/
           # Your own domain is set in the repo's Settings > Pages, not here.
           cd _site && find . -type f | sort | xargs sha256sum
       - uses: actions/configure-pages@v5
