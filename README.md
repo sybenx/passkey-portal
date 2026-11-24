@@ -1,8 +1,8 @@
 # Passkey Portal
 
-A proof of concept. A static web page that gives a person a nostr identity from a passkey: no
-server, no email, no app to install. Tap your passkey, get an npub. Tap it again on another day,
-on any device where that passkey is synced, and get the same npub.
+A proof of concept. A static web page that derives a Nostr key from a passkey, using the
+WebAuthn PRF extension. There is no server. The same passkey gives the same npub on any device
+where it is synced.
 
 It can also sign a person in to another site, like an OAuth popup: the site gets a key made just
 for it, plus two signed events that show the key belongs to the person.
@@ -14,7 +14,7 @@ for it, plus two signed events that show the key belongs to the person.
 > from GitHub Pages to Cloudflare Pages or anywhere else without breaking anyone's account.
 > The page uses `location.hostname` as the passkey's relying party id.
 
-## The trust model, plainly
+## Trust model
 
 - The secret comes from your passkey, and the key is made in your browser. Nothing is stored by the
   page (no localStorage, no cookies) and nothing is sent anywhere; the pages' Content-Security-Policy
